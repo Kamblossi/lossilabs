@@ -129,14 +129,34 @@ body {
     font-weight: var(--base--font-weight);
     line-height: 1em;
     line-height: var(--base--line-height, 100%);
-    background: #f7f7f5;
-    background: var(--base--background-color, #f7f7f5);
+    background: #000;
+    background: var(--base--background-color, #000);
     color: #222f30;
     color: var(--base--text-color, #000);
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -webkit-overflow-scrolling: touch;
     touch-action: manipulation
+}
+
+body {
+    background: #000;
+}
+
+.c-header,
+.c-hero-xl .hero_main,
+.c-hero-xl .hero_main .main_inner,
+.c-hero-xl .hero_main .main_heading,
+.c-hero-xl .hero_main .main_text,
+.c-hero-xl .hero_main .main_button,
+.c-hero-xl .hero_scroller,
+.c-hero-xl .hero_scroller .scroller_head,
+.c-hero-xl .hero_scroller .scroller_body,
+.c-hero-xl .hero_scroller .scroller_content,
+.c-hero-xl .button,
+.c-hero-xl .button_el {
+    position: relative;
+    z-index: 2;
 }
 
 html {

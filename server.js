@@ -1,5 +1,6 @@
 import cors from "cors";
 import express from "express";
+import { createReadStream, statSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -57,6 +58,42 @@ app.post("/api/contact", (request, response) => {
     message: message.trim()
   });
   return response.json({ success: true, message: "Inquiry received" });
+});
+
+const heroVideoPath = path.join(root, "wp-content/uploads/2025/10/integrated-loop-optimized.mp4");
+
+app.get("/wp-content/uploads/2025/10/integrated-loop-optimized.mp4", (request, response) => {
+  const { size } = statSync(heroVideoPath);
+  const range = request.headers.range;
+
+  response.setHeader("Content-Type", "video/mp4");
+  response.setHeader("Accept-Ranges", "bytes");
+
+  if (!range) {
+    response.setHeader("Content-Length", size);
+    return createReadStream(heroVideoPath).pipe(response);
+  }
+
+  const match = range.match(/^bytes=(\d*)-(\d*)$/);
+  if (!match || (!match[1] && !match[2])) {
+    response.status(416).setHeader("Content-Range", `bytes */${size}`);
+    return response.end();
+  }
+
+  let start = match[1] ? Number(match[1]) : Math.max(size - Number(match[2]), 0);
+  let end = match[2] ? Number(match[2]) : size - 1;
+  if (match[1] && !match[2]) end = size - 1;
+
+  if (start >= size || start > end) {
+    response.status(416).setHeader("Content-Range", `bytes */${size}`);
+    return response.end();
+  }
+
+  end = Math.min(end, size - 1);
+  response.status(206);
+  response.setHeader("Content-Range", `bytes ${start}-${end}/${size}`);
+  response.setHeader("Content-Length", end - start + 1);
+  return createReadStream(heroVideoPath, { start, end }).pipe(response);
 });
 
 for (const [route, file] of Object.entries(pages)) {
