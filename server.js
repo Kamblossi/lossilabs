@@ -107,6 +107,7 @@ app.use(express.static(root, {
     if (filePath.endsWith(".mjs")) response.type("application/javascript");
     if (filePath.endsWith(".woff2")) response.type("font/woff2");
     if (filePath.endsWith(".mp4")) response.type("video/mp4");
+    if (filePath.endsWith(".json")) response.type("application/json");
   }
 }));
 
