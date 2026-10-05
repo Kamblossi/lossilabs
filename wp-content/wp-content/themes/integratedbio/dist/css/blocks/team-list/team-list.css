@@ -1,0 +1,196 @@
+.c-team-list {
+    background-color: transparent !important;
+    background-color: var(--block-color-background, transparent) !important
+}
+
+.c-team-list .block_list {
+    display: flex;
+    flex-direction: column;
+    width: 100%
+}
+
+.c-team-list .list_item {
+    display: flex;
+    flex-direction: column;
+    min-height: 90px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+    -webkit-text-decoration: none;
+    text-decoration: none;
+    width: 100%
+}
+
+@media (min-width: 1025px) {
+    .c-team-list .list_item {
+        min-height: 130px;
+        padding-top: 20px;
+        padding-bottom: 20px
+    }
+}
+
+.c-team-list .list_item.has-modal,
+.c-team-list .list_item.has-link {
+    cursor: pointer
+}
+
+.c-team-list .list_item .item_inner {
+    align-items: center;
+    -moz-column-gap: 18px;
+    column-gap: 18px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between
+}
+
+@media (min-width: 769px) {
+    .c-team-list .list_item .item_inner {
+        -moz-column-gap: 40px;
+        column-gap: 40px
+    }
+}
+
+.c-team-list .list_item:before {
+    background-color: rgba(var(--color--7-rgb), .1);
+    content: "";
+    display: block;
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    z-index: 0
+}
+
+.c-team-list .list_item:last-child:after {
+    background-color: rgba(var(--color--7-rgb), .1);
+    content: "";
+    display: block;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    z-index: 0
+}
+
+.c-team-list .list_item .item_photo,
+.c-team-list .list_item .item_content,
+.c-team-list .list_item .item_btn {
+    position: relative;
+    z-index: 2
+}
+
+.c-team-list .list_item .item_photo {
+    aspect-ratio: 110 / 90;
+    background-color: #fff;
+    border-radius: 8px;
+    flex: 0 0 90px;
+    margin: 0;
+    max-width: 90px;
+    overflow: hidden;
+    position: relative
+}
+
+@media (min-width: 769px) {
+    .c-team-list .list_item .item_photo {
+        border-radius: 12px;
+        flex-basis: 110px;
+        max-width: 110px
+    }
+}
+
+.c-team-list .list_item .photo_img {
+    -o-object-fit: cover;
+    object-fit: cover;
+    -o-object-position: center;
+    object-position: center;
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%
+}
+
+.c-team-list .list_item .item_content {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    gap: 8px 12px;
+    width: 100%
+}
+
+@media (min-width: 1281px) {
+    .c-team-list .list_item .item_content {
+        align-items: center;
+        display: grid;
+        flex: 1 1 auto;
+        grid-template-columns: 1fr 2fr;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 1100px
+    }
+}
+
+.c-team-list .list_item .item_name {
+    color: var(--base--text-color);
+    display: inline-flex;
+    font-size: max(1rem, min(calc(1rem + .006*(100vw - 27.5rem)), 1.375rem));
+    letter-spacing: -.02em;
+    line-height: 1.1em;
+    transition: color .5s var(--transition-ease--1)
+}
+
+.c-team-list .list_item .item_job {
+    display: inline-flex;
+    color: rgba(var(--color--7-rgb), .5);
+    font-family: var(--family--2);
+    font-size: max(.75rem, min(calc(.75rem + .002*(100vw - 27.5rem)), .875rem));
+    letter-spacing: 0;
+    line-height: 1;
+    text-transform: uppercase;
+    transition: color .5s var(--transition-ease--1)
+}
+
+.c-team-list .list_item .item_btn {
+    --button-blob-background-hover: var(--color--3);
+    --button-blob-icon-image-hover: var(--button-blob-icon-image);
+    display: inline-flex;
+    flex: 0 0 48px;
+    position: relative;
+    width: 48px;
+    height: 48px
+}
+
+.c-team-list .list_item .item_hover {
+    background: var(--color--7);
+    display: none;
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transition: transform .5s var(--transition-ease--1);
+    transform: translateY(-100%);
+    will-change: transform;
+    z-index: 1
+}
+
+@media (min-width: 1025px) {
+    .c-team-list .list_item .item_hover {
+        display: block
+    }
+}
+
+@media (hover: hover) and (pointer: fine) and (min-width: 1025px) {
+    .c-team-list:not(.is-preview) .list_item:hover .item_name {
+        color: #fff
+    }
+    .c-team-list:not(.is-preview) .list_item:hover .item_job {
+        color: #ffffff80
+    }
+    .c-team-list:not(.is-preview) .list_item:hover .item_btn .btn_icon:before {
+        background-position: center left 50%, center left 150%
+    }
+}

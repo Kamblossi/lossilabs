@@ -1,0 +1,291 @@
+.c-team-grid {
+    background-color: transparent !important;
+    background-color: var(--block-color-background, transparent) !important
+}
+
+.c-team-grid .block_inner {
+    display: flex;
+    flex-direction: column;
+    padding-top: 60px;
+    padding-bottom: 80px;
+    gap: 44px var(--gap)
+}
+
+@media (min-width: 1025px) {
+    .c-team-grid .block_inner:has(.block_sidebar):has(.block_grid) {
+        align-items: flex-start;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 2fr)
+    }
+}
+
+.c-team-grid .block_sidebar,
+.c-team-grid .block_grid {
+    padding-top: 48px;
+    position: relative
+}
+
+:is(.c-team-grid .block_sidebar, .c-team-grid .block_grid):before {
+    background-color: transparent;
+    border-left: 1px solid var(--color--7);
+    border-right: 1px solid var(--color--7);
+    border-top: 1px solid var(--color--7);
+    border-radius: 8px 8px 0 0;
+    content: "";
+    opacity: .1;
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    height: 12px
+}
+
+.c-team-grid .block_sidebar {
+    display: flex;
+    flex-direction: column;
+    row-gap: max(20px, min(calc(20px + .02*(100vw - 440px)), 40px))
+}
+
+.c-team-grid .block_sidebar .label {
+    --background-color: var(--block-color-label-background, #fff);
+    --color: var(--block-color-label-text, var(--base--text-color))
+}
+
+.c-team-grid .block_sidebar .text {
+    color: var(--block-color-text, rgba(var(--color--7-rgb), .8));
+    font-size: max(1rem, min(calc(1rem + .003*(100vw - 27.5rem)), 1.1875rem));
+    letter-spacing: -.02em;
+    line-height: 1.3em;
+    text-wrap: pretty
+}
+
+@media (min-width: 1025px) {
+    .c-team-grid .block_sidebar .text {
+        max-width: 370px
+    }
+}
+
+.c-team-grid .block_grid {
+    align-items: start;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-gap: 20px var(--gap);
+    gap: 20px var(--gap);
+    width: 100%
+}
+
+@media (min-width: 1025px) {
+    .c-team-grid .block_grid {
+        gap: 48px var(--gap);
+        grid-template-columns: repeat(auto-fit, minmax(370px, 1fr))
+    }
+}
+
+.c-team-grid .grid_item {
+    --post-background-color: #fff;
+    --post-border-radius: 12px;
+    background-color: transparent;
+    border-radius: 12px 12px 0;
+    border-radius: var(--post-border-radius) var(--post-border-radius) 0 var(--post-border-radius);
+    color: var(--base--text-color);
+    display: flex;
+    flex-direction: column;
+    min-height: 200px;
+    overflow: hidden;
+    padding: 12px;
+    position: relative;
+    -webkit-text-decoration: none !important;
+    text-decoration: none !important
+}
+
+@media (min-width: 1025px) {
+    .c-team-grid .grid_item {
+        --post-border-radius: 24px;
+        min-height: 260px
+    }
+}
+
+.c-team-grid .grid_item .item_modal {
+    display: none !important
+}
+
+.c-team-grid .grid_item.has-modal,
+.c-team-grid .grid_item.has-link {
+    cursor: pointer
+}
+
+.c-team-grid .grid_item .item_photo,
+.c-team-grid .grid_item .item_content,
+.c-team-grid .grid_item .item_label {
+    position: relative;
+    z-index: 1
+}
+
+.c-team-grid .grid_item .item_photo {
+    aspect-ratio: 470 / 340;
+    border-radius: 8px;
+    flex: 0 0 auto;
+    margin-bottom: 18px;
+    overflow: hidden;
+    width: 100%
+}
+
+@media (min-width: 1025px) {
+    .c-team-grid .grid_item .item_photo {
+        border-radius: 16px
+    }
+}
+
+.c-team-grid .grid_item .photo_btn {
+    background: var(--color--7) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 16 16'%3E%3Cpath fill='%23fff' d='M14.816 0H1.18C.528 0 0 .516 0 1.153v13.69A1.17 1.17 0 0 0 1.181 16h13.635c.653 0 1.184-.519 1.184-1.153V1.153C16 .516 15.469 0 14.816 0ZM4.746 13.634H2.373V5.997h2.375v7.637ZM3.56 4.956a1.376 1.376 0 1 1-.004-2.751 1.376 1.376 0 0 1 .004 2.751Zm10.075 8.678h-2.372V9.922c0-.885-.015-2.025-1.234-2.025-1.234 0-1.422.966-1.422 1.962v3.775H6.237V5.997h2.275V7.04h.032c.315-.6 1.09-1.235 2.243-1.235 2.404 0 2.847 1.582 2.847 3.638v4.19Z'/%3E%3C/svg%3E") no-repeat center / 16px;
+    border-radius: 8px;
+    display: inline-flex;
+    right: 12px;
+    bottom: 12px;
+    position: absolute;
+    width: 38px;
+    height: 38px;
+    z-index: 1
+}
+
+.c-team-grid .grid_item .photo_img {
+    -o-object-fit: cover;
+    object-fit: cover;
+    -o-object-position: center;
+    object-position: center;
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform-origin: center;
+    transition-duration: .5s;
+    transition-property: transform;
+    transition-timing-function: var(--transition-ease--1);
+    z-index: 0
+}
+
+.c-team-grid .grid_item .item_content {
+    display: flex;
+    flex-direction: column;
+    flex: 1 0 auto;
+    gap: 12px;
+    min-height: 145px;
+    padding: 12px
+}
+
+@media (min-width: 1025px) {
+    .c-team-grid .grid_item .item_content {
+        min-height: 172px
+    }
+}
+
+.c-team-grid .grid_item .item_name {
+    font-size: 1.5rem;
+    letter-spacing: -.02em;
+    line-height: 1em
+}
+
+.c-team-grid .grid_item .item_job {
+    font-family: var(--family--2);
+    font-size: max(.75rem, min(calc(.75rem + .002*(100vw - 27.5rem)), .875rem));
+    letter-spacing: -.02em;
+    line-height: 1.1em;
+    opacity: .5;
+    text-transform: uppercase
+}
+
+.c-team-grid .grid_item .item_label {
+    align-items: flex-end;
+    display: inline-flex;
+    flex: 1 0 auto;
+    font-family: var(--family--2);
+    font-size: max(.75rem, min(calc(.75rem + .002*(100vw - 27.5rem)), .875rem));
+    justify-content: flex-start;
+    letter-spacing: -.02em;
+    line-height: 1em;
+    max-width: calc(100% - 54px);
+    padding-top: 24px;
+    text-transform: uppercase
+}
+
+.c-team-grid .grid_item .item_background {
+    background-color: var(--post-background-color);
+    border-radius: var(--post-border-radius);
+    margin: 0;
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 0
+}
+
+.c-team-grid .grid_item .item_btn,
+.c-team-grid .grid_item .btn_el,
+.c-team-grid .grid_item .btn_bg {
+    display: none;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    z-index: 1
+}
+
+.c-team-grid .grid_item .item_btn {
+    width: 87px;
+    height: 90px
+}
+
+.c-team-grid .grid_item .btn_el {
+    pointer-events: none;
+    width: 51px;
+    height: 48px
+}
+
+.c-team-grid .grid_item .btn_bg {
+    width: 100%;
+    height: 100%
+}
+
+.c-team-grid .grid_item .btn_bg path {
+    fill: var(--post-background-color)
+}
+
+:is(.c-team-grid .grid_item.has-link,
+.c-team-grid .grid_item.has-modal) .item_btn,
+:is(.c-team-grid .grid_item.has-link,
+.c-team-grid .grid_item.has-modal) .btn_el,
+:is(.c-team-grid .grid_item.has-link,
+.c-team-grid .grid_item.has-modal) .btn_bg {
+    display: inline-flex
+}
+
+:is(.c-team-grid .grid_item.has-link,
+.c-team-grid .grid_item.has-modal) .item_background {
+    border-radius: var(--post-border-radius) var(--post-border-radius) 0 var(--post-border-radius);
+    clip-path: polygon(100% 0, 100% calc(100% - 75px), calc(100% - 75px) calc(100% - 75px), calc(100% - 75px) 100%, 0 100%, 0 0)
+}
+
+@media (hover: hover) and (pointer: fine) {
+    :is(.c-team-grid .grid_item.has-link: hover, .c-team-grid .grid_item.has-modal:hover, .c-team-grid .grid_item.has-link:focus-visible, .c-team-grid .grid_item.has-modal:focus-visible) .photo_img {
+        transform:scale(1.05)
+    }
+    :is(.c-team-grid .grid_item.has-link:hover,
+    .c-team-grid .grid_item.has-modal:hover,
+    .c-team-grid .grid_item.has-link:focus-visible,
+    .c-team-grid .grid_item.has-modal:focus-visible) .item_btn .btn_icon {
+        transform: scale(var(--button-blob-scale))
+    }
+    :is(.c-team-grid .grid_item.has-link:hover,
+    .c-team-grid .grid_item.has-modal:hover,
+    .c-team-grid .grid_item.has-link:focus-visible,
+    .c-team-grid .grid_item.has-modal:focus-visible) .item_btn .btn_icon:before {
+        background-position: var(--button-blob-icon-position-hover)
+    }
+    :is(.c-team-grid .grid_item.has-link:hover,
+    .c-team-grid .grid_item.has-modal:hover,
+    .c-team-grid .grid_item.has-link:focus-visible,
+    .c-team-grid .grid_item.has-modal:focus-visible) .item_btn .btn_icon svg path {
+        fill: var(--color--7)
+    }
+}

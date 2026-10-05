@@ -1,0 +1,72 @@
+.c-fs-media {
+    --media-border-radius: 12px
+}
+
+@media (min-width: 1025px) {
+    .c-fs-media {
+        --media-border-radius: 30px
+    }
+}
+
+.c-fs-media .block_inner {
+    max-width: calc(var(--container-max-width-1) + (2 * 12px));
+    max-width: calc(var(--container-max-width-1) + 24px);
+    padding-left: 12px;
+    padding-right: 12px
+}
+
+.c-fs-media .block_media {
+    aspect-ratio: 1596 / 680;
+    background-color: var(--color--7);
+    border-radius: var(--media-border-radius);
+    -o-object-fit: cover;
+    object-fit: cover;
+    -o-object-position: center;
+    object-position: center;
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden;
+    position: relative;
+    width: 100%
+}
+
+.c-fs-media img,
+.c-fs-media picture,
+.c-fs-media video {
+    -o-object-fit: cover;
+    object-fit: cover;
+    -o-object-position: center;
+    object-position: center;
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%
+}
+
+.c-fs-media.-full-width {
+    --media-border-radius: 0
+}
+
+.c-fs-media.-full-width .block_inner {
+    max-width: 100%;
+    padding-left: 0;
+    padding-right: 0
+}
+
+.c-fs-media.is-preview .block_media:before {
+    align-items: center;
+    display: flex;
+    color: #fff;
+    content: "Preview not available";
+    font-size: max(1.625rem, min(calc(1.625rem + (44 - 26) * ((100vw - 27.5rem) / (1440 - 440))), 2.75rem));
+    justify-content: center;
+    letter-spacing: -.02em;
+    line-height: 1em;
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    text-align: center
+}

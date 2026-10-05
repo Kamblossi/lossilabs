@@ -1,0 +1,310 @@
+.c-logo-grid {
+    background-color: transparent !important;
+    background-color: var(--block-color-background, transparent) !important
+}
+
+.c-logo-grid .features {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap);
+    width: 100%
+}
+
+.c-logo-grid .features:has(+.logos) {
+    margin-bottom: max(60px, min(calc(60px + .04*(100vw - 440px)), 100px))
+}
+
+.c-logo-grid .features_item {
+    background-color: #fff;
+    background-color: var(--block-color-feature-background, #fff);
+    color: var(--block-color-feature-text, var(--base--text-color));
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding: 20px;
+    width: 100%
+}
+
+@media (min-width: 769px) and (max-width: 1024px),
+(min-width: 1025px) {
+    .c-logo-grid .features_item {
+        align-items: stretch;
+        border-radius: 20px;
+        flex-direction: row;
+        justify-content: space-between
+    }
+}
+
+.c-logo-grid .features_item .feature_content {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    gap: 20px;
+    max-width: 860px;
+    padding-top: 20px;
+    width: 100%
+}
+
+@media (min-width: 1025px) {
+    .c-logo-grid .features_item .feature_content {
+        padding: 20px
+    }
+}
+
+@media (min-width: 1281px) {
+    .c-logo-grid .features_item .feature_content {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: 1fr 48px;
+        grid-gap: 40px;
+        gap: 40px;
+        grid-template-areas: "title text" "title button"
+    }
+}
+
+.c-logo-grid .features_item .content_title {
+    font-size: max(1.5rem, min(calc(1.5rem + .012*(100vw - 27.5rem)), 2.25rem));
+    grid-area: title;
+    line-height: 1.1em
+}
+
+.c-logo-grid .features_item .content_text {
+    flex: 1 0 auto;
+    font-size: max(1rem, min(calc(1rem + .003*(100vw - 27.5rem)), 1.1875rem));
+    grid-area: text;
+    line-height: 1.3em;
+    text-wrap: pretty
+}
+
+.c-logo-grid .features_item .content_button {
+    align-items: flex-end;
+    display: flex;
+    flex: 0 0 auto;
+    grid-area: button
+}
+
+.c-logo-grid .features_item .feature_image {
+    aspect-ratio: 360 / 240;
+    border-radius: 12px;
+    margin: 0;
+    -o-object-fit: cover;
+    object-fit: cover;
+    -o-object-position: center;
+    object-position: center;
+    overflow: hidden;
+    position: relative;
+    width: 100%
+}
+
+@media (min-width: 769px) and (max-width: 1024px),
+(min-width: 1025px) {
+    .c-logo-grid .features_item .feature_image {
+        flex: 1 1 475px;
+        max-width: 475px
+    }
+}
+
+.c-logo-grid .features_item .image_el {
+    -o-object-fit: cover;
+    object-fit: cover;
+    -o-object-position: center;
+    object-position: center;
+    width: 100%;
+    height: 100%
+}
+
+.c-logo-grid .logos {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 48px var(--gap);
+    gap: 48px var(--gap);
+    width: 100%
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .c-logo-grid .logos {
+        grid-template-columns: repeat(3, 1fr)
+    }
+}
+
+@media (min-width: 1025px) {
+    .c-logo-grid .logos {
+        grid-template-columns: repeat(auto-fit, minmax(366px, 1fr))
+    }
+}
+
+.c-logo-grid .logos_item {
+    --border-color: rgba(255, 255, 255, .2);
+    --border-color-hover: rgba(255, 255, 255, 1);
+    --border-size: 8px;
+    --border-size-hover: 16px;
+    align-items: center;
+    aspect-ratio: 220 / 100;
+    border-radius: 2px;
+    display: inline-flex;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    width: 100%
+}
+
+.c-logo-grid .logos_item .item_corners {
+    pointer-events: none;
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 3
+}
+
+.c-logo-grid .logos_item .item_corner {
+    top: 0;
+    bottom: 0;
+    position: absolute;
+    width: 50%;
+    height: 100%
+}
+
+.c-logo-grid .logos_item .item_corner:before,
+.c-logo-grid .logos_item .item_corner:after {
+    content: "";
+    display: block;
+    position: absolute;
+    height: 8px;
+    height: var(--border-size, 8px);
+    transition-duration: .5s;
+    transition-property: border-color, height, width;
+    transition-timing-function: var(--transition-ease--1);
+    width: 8px;
+    width: var(--border-size, 8px);
+    z-index: 1
+}
+
+.c-logo-grid .logos_item .item_corner:before {
+    border-top: 1px solid var(--border-color);
+    top: 0
+}
+
+.c-logo-grid .logos_item .item_corner:after {
+    bottom: 0;
+    border-bottom: 1px solid var(--border-color)
+}
+
+.c-logo-grid .logos_item .item_corner:nth-child(1) {
+    left: 0
+}
+
+.c-logo-grid .logos_item .item_corner:nth-child(1):before,
+.c-logo-grid .logos_item .item_corner:nth-child(1):after {
+    left: 0
+}
+
+.c-logo-grid .logos_item .item_corner:nth-child(1):before {
+    border-left: 1px solid var(--border-color);
+    border-top-left-radius: 2px
+}
+
+.c-logo-grid .logos_item .item_corner:nth-child(1):after {
+    bottom: 0;
+    border-bottom-left-radius: 2px;
+    border-left: 1px solid var(--border-color)
+}
+
+.c-logo-grid .logos_item .item_corner:nth-child(2) {
+    right: 0
+}
+
+.c-logo-grid .logos_item .item_corner:nth-child(2):before,
+.c-logo-grid .logos_item .item_corner:nth-child(2):after {
+    right: 0
+}
+
+.c-logo-grid .logos_item .item_corner:nth-child(2):before {
+    border-right: 1px solid var(--border-color);
+    border-top-right-radius: 2px
+}
+
+.c-logo-grid .logos_item .item_corner:nth-child(2):after {
+    bottom: 0;
+    border-bottom-right-radius: 2px;
+    border-right: 1px solid var(--border-color)
+}
+
+.c-logo-grid .logos_item .item_image {
+    aspect-ratio: 220 / 100;
+    display: inline-flex;
+    margin: auto;
+    max-width: 160px;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    z-index: 1
+}
+
+@media (min-width: 1025px) {
+    .c-logo-grid .logos_item .item_image {
+        max-width: 220px
+    }
+}
+
+.c-logo-grid .logos_item .image_el {
+    -o-object-fit: cover;
+    object-fit: cover;
+    -o-object-position: center;
+    object-position: center;
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%
+}
+
+.c-logo-grid .logos_item .item_link {
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 2
+}
+
+.c-logo-grid .logos_item .item_hover {
+    background: #ffffff0a;
+    display: none;
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transition: transform .5s var(--transition-ease--1);
+    transform: translateY(-100%);
+    will-change: transform;
+    z-index: 1
+}
+
+@media (min-width: 1025px) and (hover: hover) and (pointer: fine) {
+    .c-logo-grid .logos_item .item_hover {
+        display: block
+    }
+}
+
+@media (hover: hover) and (pointer: fine) {
+    :is(.c-logo-grid .logos_item: has(.item_link):hover, .c-logo-grid .logos_item:has(.item_link):focus-within) .item_corner {
+        top:0;
+        bottom: 0;
+        position: absolute;
+        width: 50%;
+        height: 100%
+    }
+    :is(.c-logo-grid .logos_item:has(.item_link):hover, .c-logo-grid .logos_item:has(.item_link):focus-within) .item_corner:before,
+    :is(.c-logo-grid .logos_item:has(.item_link):hover, .c-logo-grid .logos_item:has(.item_link):focus-within) .item_corner:after {
+        border-color: var(--border-color-hover);
+        height: 20px;
+        height: var(--border-size-hover, 20px);
+        width: 20px;
+        width: var(--border-size-hover, 20px)
+    }
+}

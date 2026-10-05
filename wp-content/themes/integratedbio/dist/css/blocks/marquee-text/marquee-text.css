@@ -1,0 +1,49 @@
+.c-marquee-text {
+    background-color: transparent !important;
+    background-color: var(--block-color-background, transparent) !important;
+    color: var(--block-color-text, var(--base--text-color)) !important
+}
+
+.c-marquee-text .block_inner {
+    padding-top: 70px;
+    padding-bottom: 70px
+}
+
+@media (min-width: 1025px) {
+    .c-marquee-text .block_inner {
+        padding-top: 160px;
+        padding-bottom: 160px
+    }
+}
+
+.c-marquee-text .marquee {
+    overflow: hidden;
+    position: relative;
+    width: 100vw
+}
+
+.c-marquee-text .marquee_scroll {
+    display: flex;
+    position: relative;
+    width: 100%;
+    will-change: transform
+}
+
+.c-marquee-text .marquee_collection {
+    display: flex;
+    position: relative;
+    will-change: transform
+}
+
+.c-marquee-text .marquee_item {
+    align-items: center;
+    display: flex;
+    justify-content: flex-start
+}
+
+.c-marquee-text .marquee_item_text {
+    font-size: max(3.375rem, min(calc(3.375rem + .106*(100vw - 27.5rem)), 10rem));
+    line-height: 1em;
+    padding-bottom: .1em;
+    white-space: nowrap
+}

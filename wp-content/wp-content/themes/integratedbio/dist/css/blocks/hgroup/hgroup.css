@@ -1,0 +1,333 @@
+.c-hgroup {
+    background-color: transparent !important;
+    background-color: var(--block-color-background, transparent) !important
+}
+
+.c-hgroup .block_inner {
+    display: flex;
+    flex-direction: column;
+    padding-top: 60px;
+    padding-bottom: 80px;
+    gap: 44px var(--gap)
+}
+
+@media (min-width: 1025px) {
+    .c-hgroup .block_inner:has(.block_sidebar):has(.block_content) {
+        align-items: flex-start;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 2fr)
+    }
+}
+
+@media (min-width: 1025px) {
+    .c-hgroup.-split-layout .block_inner:has(.block_sidebar):has(.block_content) {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr)
+    }
+}
+
+.c-hgroup:not(.-border-ascents-disabled) .block_sidebar,
+.c-hgroup:not(.-border-ascents-disabled) .block_content {
+    padding-top: 48px;
+    position: relative
+}
+
+:is(.c-hgroup:not(.-border-ascents-disabled) .block_sidebar, .c-hgroup:not(.-border-ascents-disabled) .block_content):before {
+    background-color: transparent;
+    border-left: 1px solid var(--color--7);
+    border-right: 1px solid var(--color--7);
+    border-top: 1px solid var(--color--7);
+    border-radius: 8px 8px 0 0;
+    content: "";
+    opacity: .1;
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    height: 12px
+}
+
+.c-hgroup .block_sidebar {
+    position: relative;
+    width: 100%
+}
+
+@media (max-width: 1024px) {
+    .c-hgroup .block_sidebar+.block_content {
+        padding-top: 0
+    }
+    .c-hgroup .block_sidebar+.block_content:before {
+        content: none;
+        display: none
+    }
+}
+
+.c-hgroup .label {
+    --background-color: var(--block-color-label-background, #fff);
+    --color: var(--block-color-label-text, var(--base--text-color))
+}
+
+.c-hgroup .block_content {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    row-gap: max(20px, min(calc(20px + .04*(100vw - 440px)), 60px));
+    width: 100%
+}
+
+.c-hgroup .heading {
+    color: var(--block-color-heading, var(--base--text-color));
+    font-size: max(1.625rem, min(calc(1.625rem + .05*(100vw - 27.5rem)), 4.75rem));
+    letter-spacing: -.02em;
+    line-height: 1.1em;
+    text-wrap: balance
+}
+
+.c-hgroup .text {
+    color: var(--block-color-text, rgba(var(--color--7-rgb), .8));
+    font-size: max(1rem, min(calc(1rem + .003*(100vw - 27.5rem)), 1.1875rem));
+    letter-spacing: -.02em;
+    line-height: 1.3em;
+    max-width: 790px;
+    text-wrap: pretty
+}
+
+@media (max-width: 1024px) {
+    .c-hgroup .button {
+        margin-top: 20px
+    }
+}
+
+.c-hgroup .block_list {
+    display: flex;
+    flex-direction: column;
+    margin-top: 40px;
+    width: 100%
+}
+
+@media (min-width: 1025px) {
+    .c-hgroup .block_list {
+        margin-top: 0
+    }
+}
+
+.c-hgroup .list_item {
+    margin-top: -1px;
+    position: relative;
+    overflow: hidden;
+    -webkit-text-decoration: none;
+    text-decoration: none;
+    width: 100%
+}
+
+.c-hgroup .list_item .item_inner {
+    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr .5fr 48px;
+    justify-content: space-between;
+    grid-gap: var(--gap);
+    gap: var(--gap);
+    min-height: 90px;
+    padding: 20px 0;
+    width: 100%
+}
+
+@media (min-width: 1025px) {
+    .c-hgroup .list_item .item_inner {
+        min-height: 115px;
+        padding: 24px 24px 24px 0
+    }
+}
+
+.c-hgroup .list_item[data-accordion-status] .item_inner {
+    background: none;
+    border: 0;
+    cursor: pointer;
+    text-align: left;
+    width: 100%
+}
+
+.c-hgroup .list_item:before {
+    background-color: rgba(var(--color--7-rgb), .1);
+    content: "";
+    display: block;
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    z-index: 0
+}
+
+.c-hgroup .list_item:last-child:after {
+    background-color: rgba(var(--color--7-rgb), .1);
+    content: "";
+    display: block;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    z-index: 0
+}
+
+.c-hgroup .list_item .item_title,
+.c-hgroup .list_item .item_meta,
+.c-hgroup .list_item .item_btn {
+    position: relative;
+    z-index: 2
+}
+
+.c-hgroup .list_item .item_title {
+    color: var(--base--text-color);
+    flex: 1;
+    font-size: max(1rem, min(calc(1rem + .006*(100vw - 27.5rem)), 1.375rem));
+    letter-spacing: -.02em;
+    line-height: 1.1em;
+    padding: 0 24px 0 0;
+    transition-property: color, padding;
+    transition-duration: .5s;
+    transition-timing-function: var(--transition-ease--1)
+}
+
+.c-hgroup .list_item .item_meta {
+    color: rgba(var(--color--7-rgb), .5);
+    flex: 1;
+    font-family: var(--family--2);
+    font-size: max(.75rem, min(calc(.75rem + .002*(100vw - 27.5rem)), .875rem));
+    letter-spacing: 0;
+    line-height: 1;
+    text-transform: uppercase;
+    transition: color .5s var(--transition-ease--1)
+}
+
+.c-hgroup .list_item .item_btn {
+    --button-blob-background-hover: var(--color--3);
+    --button-blob-icon-image-hover: var(--button-blob-icon-image);
+    display: inline-flex;
+    flex: none;
+    position: relative;
+    width: 48px;
+    height: 48px
+}
+
+.c-hgroup .list_item .item_icon {
+    display: inline-flex;
+    flex: none;
+    position: relative;
+    width: 48px;
+    height: 48px
+}
+
+.c-hgroup .list_item .item_icon:before,
+.c-hgroup .list_item .item_icon:after {
+    background: var(--color--7);
+    content: "";
+    margin: auto;
+    inset: 0;
+    position: absolute;
+    width: 28px;
+    height: 2px;
+    transition-duration: .6s;
+    transition-property: opacity, transform;
+    transition-timing-function: var(--transition-ease--1);
+    transform-origin: center
+}
+
+.c-hgroup .list_item .item_icon:before {
+    transform: rotate(0)
+}
+
+.c-hgroup .list_item .item_icon:after {
+    transform: rotate(90deg)
+}
+
+.c-hgroup .list_item .item_accordion_body {
+    overflow: hidden;
+    height: 0;
+    opacity: 0;
+    transition-duration: .6s;
+    transition-property: height, opacity;
+    transition-timing-function: var(--transition-ease--1)
+}
+
+.c-hgroup .list_item .accordion_inner {
+    display: flex;
+    flex-direction: column;
+    row-gap: 30px;
+    padding: 0 0 60px;
+    width: 100%
+}
+
+.c-hgroup .list_item .accordion_text {
+    margin-bottom: 20px;
+    width: 100%
+}
+
+.c-hgroup .list_item .accordion_text p {
+    display: block;
+    font-size: max(1rem, min(calc(1rem + .002*(100vw - 27.5rem)), 1.125rem));
+    letter-spacing: -.01em;
+    line-height: 1.3em;
+    opacity: .7;
+    text-wrap: pretty
+}
+
+.c-hgroup .list_item .accordion_text p:not(:last-child) {
+    margin-bottom: 1em
+}
+
+.c-hgroup .list_item .item_hover {
+    background: var(--color--7);
+    display: none;
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transition: transform .5s var(--transition-ease--1);
+    transform: translateY(-100%);
+    will-change: transform;
+    z-index: 1
+}
+
+@media (min-width: 1025px) {
+    .c-hgroup .list_item .item_hover {
+        display: block
+    }
+}
+
+@media (hover: hover) and (pointer: fine) and (min-width: 1025px) {
+    .c-hgroup:not(.is-preview) .list_item[href]:not([data-accordion-status]):hover .item_title {
+        color: #fff;
+        padding: 0 0 0 24px
+    }
+    .c-hgroup:not(.is-preview) .list_item[href]:not([data-accordion-status]):hover .item_meta {
+        color: #ffffff80
+    }
+    .c-hgroup:not(.is-preview) .list_item[href]:not([data-accordion-status]):hover .item_btn .btn_icon:before {
+        background-position: center left 50%, center left 150%
+    }
+}
+
+.c-hgroup .list_item[data-accordion-status=active] .item_accordion_body {
+    height: auto;
+    opacity: 1
+}
+
+.c-hgroup .list_item[data-accordion-status=active] .item_icon:before {
+    opacity: 0;
+    transform: rotate(45deg)
+}
+
+.c-hgroup .list_item[data-accordion-status=active] .item_icon:after {
+    transform: rotate(180deg)
+}
+
+.c-hgroup .js-accordion .item_inner {
+    display: grid;
+    grid-template-columns: 1fr .5fr 48px
+}
+
+.c-hgroup .js-accordion .item_accordion_body {
+    width: 100%
+}
