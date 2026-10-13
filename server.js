@@ -9,16 +9,17 @@ const app = express();
 const pages = {
   "/": "index.html",
   "/company": "company/index.html",
-  "/newsroom": "newsroom/index.html",
+  "/the-lab": "the-lab/index.html",
+  "/newsroom": "the-lab/index.html",
   "/work-with-us": "work-with-us/index.html"
 };
 const newsroomPosts = [
-  { id: 1, title: "Integrated Biosciences announces new research initiatives", date: "October 5, 2026", permalink: "https://integratedbio.com/newsroom/", categories: [{ id: 1, name: "News" }], classes: "" },
-  { id: 2, title: "New approaches to understanding cellular aging", date: "September 18, 2026", permalink: "https://integratedbio.com/newsroom/", categories: [{ id: 21, name: "Press" }], classes: "" },
-  { id: 3, title: "Integrated Biosciences expands its scientific team", date: "August 29, 2026", permalink: "https://integratedbio.com/newsroom/", categories: [{ id: 1, name: "News" }], classes: "" },
-  { id: 4, title: "Engineering the future of aging medicine", date: "July 12, 2026", permalink: "https://integratedbio.com/newsroom/", categories: [{ id: 21, name: "Press" }], classes: "" },
-  { id: 5, title: "Research update: small molecule therapeutics", date: "June 4, 2026", permalink: "https://integratedbio.com/newsroom/", categories: [{ id: 1, name: "News" }], classes: "" },
-  { id: 6, title: "Building a multidisciplinary biology platform", date: "May 16, 2026", permalink: "https://integratedbio.com/newsroom/", categories: [{ id: 21, name: "Press" }], classes: "" }
+  { id: 1, title: "Integrated Biosciences announces new research initiatives", date: "October 5, 2026", permalink: "https://lossilabs.tech/the-lab/", categories: [{ id: 1, name: "News" }], classes: "" },
+  { id: 2, title: "New approaches to understanding cellular aging", date: "September 18, 2026", permalink: "https://lossilabs.tech/the-lab/", categories: [{ id: 21, name: "Press" }], classes: "" },
+  { id: 3, title: "Integrated Biosciences expands its scientific team", date: "August 29, 2026", permalink: "https://lossilabs.tech/the-lab/", categories: [{ id: 1, name: "News" }], classes: "" },
+  { id: 4, title: "A Software Atelier Designing and Building High-Impact Solutions", date: "July 12, 2026", permalink: "https://lossilabs.tech/the-lab/", categories: [{ id: 21, name: "Press" }], classes: "" },
+  { id: 5, title: "Research update: small molecule therapeutics", date: "June 4, 2026", permalink: "https://lossilabs.tech/the-lab/", categories: [{ id: 1, name: "News" }], classes: "" },
+  { id: 6, title: "Building a multidisciplinary biology platform", date: "May 16, 2026", permalink: "https://lossilabs.tech/the-lab/", categories: [{ id: 21, name: "Press" }], classes: "" }
 ];
 
 app.use(cors());
@@ -108,6 +109,7 @@ app.use(express.static(root, {
     if (filePath.endsWith(".woff2")) response.type("font/woff2");
     if (filePath.endsWith(".mp4")) response.type("video/mp4");
     if (filePath.endsWith(".json")) response.type("application/json");
+    if (filePath.endsWith(".png")) response.type("image/png");
   }
 }));
 
@@ -115,7 +117,7 @@ const preferredPort = Number(process.env.PORT) || 3000;
 
 const startServer = (port) => {
   const server = app.listen(port, () => {
-    console.log(`Integrated Biosciences local server: http://localhost:${port}`);
+    console.log(`Lossi Labs local server: http://localhost:${port}`);
   });
 
   server.on("error", (error) => {
