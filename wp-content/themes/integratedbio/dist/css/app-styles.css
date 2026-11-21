@@ -989,7 +989,8 @@ html.lenis body {
     [data-cid].u-default h4,
     [data-cid].u-default h5,
     [data-cid].u-default h6 {
-        font-weight: 400
+        font-weight: 400;
+        margin: 0
     }
     [data-cid].u-default.-round-block-offset {
         z-index: 2
