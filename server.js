@@ -1,6 +1,7 @@
 import cors from "cors";
 import express from "express";
-import { appendFileSync, createReadStream, statSync } from "node:fs";
+import nodemailer from "nodemailer";
+import { appendFileSync, createReadStream, existsSync, readFileSync, statSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -17,31 +18,90 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.post("/api/contact", (request, response) => {
-  const { name, email, organization, phone, role, tooling, message } = request.body ?? {};
-  if (![name, email, message].every((value) => typeof value === "string" && value.trim())) {
+function loadHostEnv() {
+  const envFile = path.join(root, "..", ".env");
+  if (!existsSync(envFile)) return;
+  for (const line of readFileSync(envFile, "utf8").split(/\r?\n/)) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith("#")) continue;
+    const eq = trimmed.indexOf("=");
+    if (eq === -1) continue;
+    const key = trimmed.slice(0, eq).trim();
+    const val = trimmed.slice(eq + 1).trim().replace(/^["']|["']$/g, "");
+    if (!(key in process.env)) process.env[key] = val;
+  }
+}
+loadHostEnv();
+
+app.post("/api/contact", async (request, response) => {
+  const { firstName, lastName, name, email, phone, focusArea, message } = request.body ?? {};
+  const fullName = (typeof name === "string" && name.trim())
+    ? name.trim()
+    : [firstName, lastName].filter((v) => typeof v === "string" && v.trim()).map((v) => v.trim()).join(" ");
+
+  if (![fullName, email, message].every((v) => typeof v === "string" && v.trim())) {
     return response.status(400).json({ success: false, message: "Name, work email, and project brief are required." });
   }
 
   const entry = {
     received_at: new Date().toISOString(),
-    name: name.trim(),
+    name: fullName,
     email: email.trim(),
-    organization: typeof organization === "string" ? organization.trim() : "",
     phone: typeof phone === "string" ? phone.trim() : "",
-    role: typeof role === "string" ? role.trim() : "",
-    tooling: typeof tooling === "string" ? tooling.trim() : "",
+    focusArea: typeof focusArea === "string" ? focusArea.trim() : "General Inquiry",
     message: message.trim()
   };
 
-  console.log("Lossi Labs intake brief received:", entry);
+  console.log("Lossi Labs message received:", entry);
   try {
     appendFileSync(path.join(root, "..", "inquiries.jsonl"), `${JSON.stringify(entry)}\n`, "utf8");
   } catch (err) {
     console.error("Failed to write inquiry log:", err);
   }
 
-  return response.json({ success: true, message: "Brief received" });
+  const smtpUser = process.env.TITAN_SMTP_USER || "newton@lossilabs.tech";
+  const smtpPass = process.env.TITAN_SMTP_PASS;
+
+  if (!smtpPass) {
+    console.warn("TITAN_SMTP_PASS not set in /srv/websites/lossilabs.tech/.env — saved to inquiries.jsonl only.");
+    return response.json({ success: true, message: "Message logged." });
+  }
+
+  try {
+    const transporter = nodemailer.createTransport({
+      host: "smtp.titan.email",
+      port: 465,
+      secure: true,
+      auth: { user: smtpUser, pass: smtpPass }
+    });
+
+    await transporter.sendMail({
+      from: `"Lossi Labs Intake" <${smtpUser}>`,
+      to: "newton@lossilabs.tech",
+      replyTo: entry.email,
+      subject: `[Lossi Labs] ${entry.focusArea} — ${entry.name}`,
+      text: [
+        `New inquiry from lossilabs.tech/work-with-us/`,
+        ``,
+        `Name:       ${entry.name}`,
+        `Email:      ${entry.email}`,
+        `Phone:      ${entry.phone || "Not provided"}`,
+        `Focus Area: ${entry.focusArea}`,
+        `Submitted:  ${entry.received_at}`,
+        ``,
+        `Project Brief:`,
+        entry.message
+      ].join("\n")
+    });
+
+    return response.json({ success: true, message: "Message sent to newton@lossilabs.tech" });
+  } catch (err) {
+    console.error("Titan SMTP send error:", err);
+    return response.status(502).json({
+      success: false,
+      message: "Email relay failed, though your brief was logged. Please email newton@lossilabs.tech directly."
+    });
+  }
 });
 
 const heroVideoPath = path.join(root, "wp-content/uploads/2025/10/integrated-loop-optimized.mp4");
