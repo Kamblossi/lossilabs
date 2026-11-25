@@ -1,6 +1,6 @@
 import cors from "cors";
 import express from "express";
-import { createReadStream, statSync } from "node:fs";
+import { appendFileSync, createReadStream, statSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -18,18 +18,31 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.post("/api/contact", (request, response) => {
-  const { name, email, organization, message } = request.body ?? {};
-  if (![name, email, organization, message].every((value) => typeof value === "string" && value.trim())) {
-    return response.status(400).json({ success: false, message: "Name, email, organization, and message are required" });
+  const { name, email, organization, phone, role, tooling, message } = request.body ?? {};
+  if (![name, email, message].every((value) => typeof value === "string" && value.trim())) {
+    return response.status(400).json({ success: false, message: "Name, work email, and project brief are required." });
   }
 
-  console.log("Contact inquiry received", {
+  const entry = {
+    received_at: new Date().toISOString(),
     name: name.trim(),
     email: email.trim(),
-    organization: organization.trim(),
+    organization: typeof organization === "string" ? organization.trim() : "",
+    phone: typeof phone === "string" ? phone.trim() : "",
+    role: typeof role === "string" ? role.trim() : "",
+    tooling: typeof tooling === "string" ? tooling.trim() : "",
     message: message.trim()
-  });
-  return response.json({ success: true, message: "Inquiry received" });
+  };
+
+  console.log("Lossi Labs intake brief received:", entry);
+  try {
+    appendFileSync(path.join(root, "..", "inquiries.jsonl"), JSON.stringify(entry) + "
+", "utf8");
+  } catch (err) {
+    console.error("Failed to write inquiry log:", err);
+  }
+
+  return response.json({ success: true, message: "Brief received" });
 });
 
 const heroVideoPath = path.join(root, "wp-content/uploads/2025/10/integrated-loop-optimized.mp4");
