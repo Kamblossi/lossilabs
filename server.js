@@ -36,8 +36,7 @@ app.post("/api/contact", (request, response) => {
 
   console.log("Lossi Labs intake brief received:", entry);
   try {
-    appendFileSync(path.join(root, "..", "inquiries.jsonl"), JSON.stringify(entry) + "
-", "utf8");
+    appendFileSync(path.join(root, "..", "inquiries.jsonl"), `${JSON.stringify(entry)}\n`, "utf8");
   } catch (err) {
     console.error("Failed to write inquiry log:", err);
   }
