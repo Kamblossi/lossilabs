@@ -152,6 +152,8 @@ app.get("/wp-content/uploads/2025/10/integrated-loop-optimized.mp4", (request, r
   return createReadStream(heroVideoPath, { start, end }).pipe(response);
 });
 
+app.get(["/contact", "/contact/"], (_req, res) => res.redirect(301, "/work-with-us/"));
+
 for (const [route, file] of Object.entries(pages)) {
   app.get(`${route}/`, (_request, response) => response.sendFile(path.join(root, file)));
   app.get(route, (_request, response) => response.sendFile(path.join(root, file)));
