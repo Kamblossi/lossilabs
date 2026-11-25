@@ -1511,6 +1511,56 @@
   transition: background-color 5000s ease-in-out 0s;
 }
 </style>
+<style id="lossi-wwu-split-hero">
+#block_5e03a0b870602b963be35cba3c61162f .block_inner {
+  padding-bottom: clamp(48px, 5vw, 80px) !important;
+}
+.lossi-split-hero {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.85fr) minmax(0, 1.15fr);
+  gap: clamp(28px, 4.5vw, 64px);
+  align-items: center;
+}
+.lossi-split-hero__media {
+  margin: 0;
+  width: 100%;
+  aspect-ratio: 4 / 4.4;
+  border-radius: 24px;
+  overflow: hidden;
+  background: #222F30;
+  box-shadow: 0 20px 50px rgba(34, 47, 48, 0.12);
+}
+.lossi-split-hero__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+.lossi-split-hero__copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.lossi-split-hero__copy .heading {
+  margin: 0 0 20px 0 !important;
+  font-size: clamp(30px, 3.3vw, 54px) !important;
+  line-height: 1.08 !important;
+}
+.lossi-split-hero__copy .text {
+  margin: 0 !important;
+  max-width: 54ch;
+}
+@media (max-width: 900px) {
+  .lossi-split-hero {
+    grid-template-columns: 1fr;
+  }
+  .lossi-split-hero__media {
+    max-width: 440px;
+    aspect-ratio: 4 / 3.8;
+  }
+}
+</style>
 </head>
 
 <body class="wp-singular page-template-default page page-id-1977 wp-theme-integratedbio page-work-with-us">
@@ -1552,12 +1602,18 @@
         <div id="page-content" class="page-content">
             <section data-cid="hero" data-js data-js-loaded="false" data-js-mounted="false" id="block_5e03a0b870602b963be35cba3c61162f" class="block-hero  c-hero u-default">
                 <div class="block_inner u-container u-container--1 u-container--pad">
-                    <h1 class="heading u-wysiwyg-text--1" data-text-reveal="true" style="font-size: clamp(32px, 4.4vw, 64px); line-height: 1.08;">Partner with Lossi Labs to build domain-grade software, <span style="color: #c9cbbe">agentic workflows, and computational engineering tools.</span>
-                    </h1>
-                    <h2 class="text u-wysiwyg-text--1" data-text-reveal="true">
-                        <p>Submit an operational brief below to initiate a direct principal review, or reach the studio directly by email or phone.</p>
-                    </h2>
-                    <a class="scroll-btn u-disable-button" href="#intake" aria-label="Scroll to intake form" target="_self">Scroll</a>
+                    <div class="lossi-split-hero">
+                        <figure class="lossi-split-hero__media">
+                            <img src="/lossi-labs-founder.jpg" alt="Newton Ochieng — Founder, Lossi Labs" loading="eager" />
+                        </figure>
+                        <div class="lossi-split-hero__copy">
+                            <h1 class="heading u-wysiwyg-text--1" data-text-reveal="true">Partner with Lossi Labs to build domain-grade software, <span style="color: #c9cbbe">agentic workflows, and computational engineering tools.</span>
+                            </h1>
+                            <h2 class="text u-wysiwyg-text--1" data-text-reveal="true">
+                                <p>Submit an operational brief below to initiate a direct principal review, or reach the studio directly by email or phone.</p>
+                            </h2>
+                        </div>
+                    </div>
                 </div>
             </section>
 
