@@ -1484,6 +1484,33 @@
     <meta name="apple-mobile-web-app-title" content="Lossi Labs" />
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="msapplication-TileImage" content="/wp-content/uploads/2025/09/cropped-512x512-1-270x270.png" />
+<style id="lossi-intake-contrast">
+#lossi-intake-wrap input,
+#lossi-intake-wrap select,
+#lossi-intake-wrap textarea {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  caret-color: #ffffff !important;
+}
+#lossi-intake-wrap input::placeholder,
+#lossi-intake-wrap textarea::placeholder {
+  color: rgba(255, 255, 255, 0.45) !important;
+  -webkit-text-fill-color: rgba(255, 255, 255, 0.45) !important;
+}
+#lossi-intake-wrap select option {
+  background-color: #222F30 !important;
+  color: #ffffff !important;
+}
+#lossi-intake-wrap input:-webkit-autofill,
+#lossi-intake-wrap input:-webkit-autofill:hover,
+#lossi-intake-wrap input:-webkit-autofill:focus,
+#lossi-intake-wrap textarea:-webkit-autofill,
+#lossi-intake-wrap select:-webkit-autofill {
+  -webkit-text-fill-color: #ffffff !important;
+  -webkit-box-shadow: 0 0 0 1000px #353f3e inset !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+</style>
 </head>
 
 <body class="wp-singular page-template-default page page-id-1977 wp-theme-integratedbio page-work-with-us">
@@ -1826,11 +1853,17 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
       });
-      const json = await res.json();
+      const raw = await res.text();
+      let json = {};
+      try {
+        json = JSON.parse(raw);
+      } catch {
+        throw new Error('Server gateway timed out while contacting mail server');
+      }
       if (res.ok && json.success) {
         statusEl.style.background = '#294a33';
         statusEl.style.color = '#ffffff';
-        statusEl.textContent = 'Message sent. Newton will review your brief and reply shortly.';
+        statusEl.textContent = json.message || 'Message sent. Newton will review your brief and reply shortly.';
         form.reset();
       } else {
         throw new Error(json.message || 'Unable to send message.');

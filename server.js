@@ -68,38 +68,50 @@ app.post("/api/contact", async (request, response) => {
   }
 
   try {
-    const transporter = nodemailer.createTransport({
-      host: "smtp.titan.email",
-      port: 465,
-      secure: true,
-      auth: { user: smtpUser, pass: smtpPass }
-    });
+    const sendWithPort = async (port, secure) => {
+      const transporter = nodemailer.createTransport({
+        host: "smtp.titan.email",
+        port,
+        secure,
+        connectionTimeout: 8000,
+        greetingTimeout: 8000,
+        socketTimeout: 10000,
+        auth: { user: smtpUser, pass: smtpPass }
+      });
 
-    await transporter.sendMail({
-      from: `"Lossi Labs Intake" <${smtpUser}>`,
-      to: "newton@lossilabs.tech",
-      replyTo: entry.email,
-      subject: `[Lossi Labs] ${entry.focusArea} — ${entry.name}`,
-      text: [
-        `New inquiry from lossilabs.tech/work-with-us/`,
-        ``,
-        `Name:       ${entry.name}`,
-        `Email:      ${entry.email}`,
-        `Phone:      ${entry.phone || "Not provided"}`,
-        `Focus Area: ${entry.focusArea}`,
-        `Submitted:  ${entry.received_at}`,
-        ``,
-        `Project Brief:`,
-        entry.message
-      ].join("\n")
-    });
+      return transporter.sendMail({
+        from: `"Lossi Labs Intake" <${smtpUser}>`,
+        to: "newton@lossilabs.tech",
+        replyTo: entry.email,
+        subject: `[Lossi Labs] ${entry.focusArea} — ${entry.name}`,
+        text: [
+          `New inquiry from lossilabs.tech/work-with-us/`,
+          ``,
+          `Name:       ${entry.name}`,
+          `Email:      ${entry.email}`,
+          `Phone:      ${entry.phone || "Not provided"}`,
+          `Focus Area: ${entry.focusArea}`,
+          `Submitted:  ${entry.received_at}`,
+          ``,
+          `Project Brief:`,
+          entry.message
+        ].join("\n")
+      });
+    };
+
+    try {
+      await sendWithPort(465, true);
+    } catch (firstErr) {
+      console.warn("Titan port 465 failed, retrying 587 STARTTLS:", firstErr.code || firstErr.message);
+      await sendWithPort(587, false);
+    }
 
     return response.json({ success: true, message: "Message sent to newton@lossilabs.tech" });
   } catch (err) {
     console.error("Titan SMTP send error:", err);
     return response.status(502).json({
       success: false,
-      message: "Email relay failed, though your brief was logged. Please email newton@lossilabs.tech directly."
+      message: `Mail relay error (${err.code || "SMTP_TIMEOUT"}), though your brief was saved on the server.`
     });
   }
 });
